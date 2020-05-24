@@ -1,0 +1,17 @@
+
+[
+{"id":"1","states":"Lagos","cases":"3224","discharged":"582","deaths":"42"},
+{"id":"2","states":"Kano","cases":"883","discharged":"133","deaths":"36"},
+{"id":"3","states":"FCT","cases":"447","discharged":"143","deaths":"14"},
+{"id":"4","states":"Katsina","cases":"308","discharged":"51","deaths":"14"},
+{"id":"5","states":"Borno","cases":"247","discharged":"111","deaths":"25"},
+{"id":"6","states":"Jigawa","cases":"241","discharged":"78","deaths":"4"},
+{"id":"7","states":"Bauchi","cases":"230","discharged":"156","deaths":"5"},
+{"id":"8","states":"Oyo","cases":"199","discharged":"49","deaths":"4"},
+{"id":"9","states":"Ogun","cases":"196","discharged":"97","deaths":"6"},
+{"id":"10","states":"Kaduna","cases":"179","discharged":"84","deaths":"5"},
+{"id":"11","states":"Gombe","cases":"145","discharged":"92","deaths":"3"},
+{"id":"12","states":"Edo","cases":"144","discharged":"39","deaths":"6"},
+{"id":"13","states":"Sokoto","cases":"116","discharged":"80","deaths":"13"}
+]
+

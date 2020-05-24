@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="js/d3.min.js"></script>
+</head>
+<body>
+    
+    <svg width="960" height="500"></svg>
+   
+    <script>
+    
+     let covidReport = [
+            {"id":"1","states":"Lagos","cases":"3224","discharged":"582","deaths":"42"},
+            {"id":"2","states":"Kano","cases":"883","discharged":"133","deaths":"36"},
+            {"id":"3","states":"FCT","cases":"447","discharged":"143","deaths":"14"},
+            {"id":"4","states":"Katsina","cases":"308","discharged":"51","deaths":"14"},
+            {"id":"5","states":"Borno","cases":"247","discharged":"111","deaths":"25"},
+            {"id":"6","states":"Jigawa","cases":"241","discharged":"78","deaths":"4"},
+            {"id":"7","states":"Bauchi","cases":"230","discharged":"156","deaths":"5"},
+            {"id":"8","states":"Oyo","cases":"199","discharged":"49","deaths":"4"},
+            {"id":"9","states":"Ogun","cases":"196","discharged":"97","deaths":"6"},
+            {"id":"10","states":"Kaduna","cases":"179","discharged":"84","deaths":"5"},
+            {"id":"11","states":"Gombe","cases":"145","discharged":"92","deaths":"3"},
+            {"id":"12","states":"Edo","cases":"144","discharged":"39","deaths":"6"},
+            {"id":"13","states":"Sokoto","cases":"116","discharged":"80","deaths":"13"}
+      ];
+
+
+     let svg = d3.select("svg");
+     let width = svg.attr("width");
+     let height = svg.attr("height");
+     console.log(width,height); 
+     
+    const render = data => {
+        let margin = {top:20,bottom:200,left:100,right:20}  
+         let innerWidth = width - margin.left - margin.right
+        let innerHeight = height - margin.top - margin.bottom
+
+        //scale for horizontal axis
+        let xScale = d3.scaleLinear()
+                     .domain([0,d3.max(data,d=>d.cases)])
+                     .range([0,innerWidth]); 
+
+         //scale for vertical axis
+        let yScale = d3.scaleBand().domain(data.map(d=>d.states))
+                 .range([0,innerHeight])
+                 .padding(0.1); 
+
+       
+                 
+        //Positioning Barchat Area
+        const g = svg.append('g')
+               .attr('transform',`translate(${margin.left},${margin.top})`);                  
+        
+        // displaying and positioning the X and Y Axes
+        g.append('g').call(d3.axisLeft(yScale))
+          .selectAll(".domain,.tick line").remove();
+
+       const xAxisG = g.append('g').call(d3.axisBottom(xScale))
+          .attr('transform',`translate(0,${innerHeight})`);
+           xAxisG.select(".domain").remove();
+           xAxisG.append('text')
+            .attr('y',40)
+            .attr('x',innerWidth / 2)
+            .attr('fill','black')
+            .text('Number Of Cases');
+        //Increasing tick size
+        d3.axisBottom(xScale).tickSize(-innerHeight);
+
+        //Adding Chart Label
+        g.append('text')
+          .text('COVID 19 Cases In Nigeria As Of 22nd May 2020')
+           .style('text-align','centre')
+
+        console.log(xScale.range());
+        
+        //data joining  
+          g.selectAll("rect").data(data)
+           .enter().append("rect")
+            .attr("y",d=>yScale(d.states))
+            .attr("width",d=>xScale(d.cases))
+             .attr("height",yScale.bandwidth());
+
+                       
+     }
+     covidReport.forEach(data => {
+         console.log(data);
+         data.cases = +data.cases;
+         data.discharged = +data.discharged;
+         data.deaths = +data.deaths;
+         console.log(data);
+     })
+    //  console.log(covidReport)
+     render(covidReport);
+    </script>
+</body>
+</html>
